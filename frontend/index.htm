@@ -1,0 +1,252 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CertificateGuard AI — Certificate Authenticity Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+ 
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="wrap header-row">
+    <a href="#top" class="wordmark">
+      <span class="seal-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" width="30" height="30">
+          <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
+          <circle cx="20" cy="20" r="12" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 3"/>
+          <path d="M13 20.5l4.5 4.5L27.5 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="wordmark-text">CertificateGuard <em>AI</em></span>
+    </a>
+    <nav class="site-nav">
+      <a href="#console">Analysis Console</a>
+      <a href="#how">How It Works</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+ 
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Case File No. 000 — Open Investigation</p>
+      <h1>Every certificate<br> tells the truth —<br><span class="ink-underline">if you know where to look.</span></h1>
+      <p class="hero-sub">Recruiters and institutions verify thousands of certificates by eye. CertificateGuard AI reads the document, cross-checks its details against verification records, and hands back a verdict — with the evidence attached.</p>
+      <div class="hero-actions">
+        <a href="#console" class="btn btn-primary">Open the Console</a>
+        <a href="#how" class="btn btn-ghost">See how it works</a>
+      </div>
+      <dl class="hero-stats">
+        <div><dt>Fields extracted</dt><dd>Name · ID · Institution · Date · Course</dd></div>
+        <div><dt>Checks run per submission</dt><dd>7 independent evidence checks</dd></div>
+      </dl>
+    </div>
+ 
+    <div class="hero-visual" aria-hidden="true">
+      <div class="scan-card">
+        <div class="scan-card-head">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="scan-card-body">
+          <div class="cert-line w60"></div>
+          <div class="cert-line w40"></div>
+          <div class="cert-seal-mini"></div>
+          <div class="cert-line w80"></div>
+          <div class="cert-line w70"></div>
+          <div class="cert-line w50"></div>
+          <div class="scan-beam"></div>
+        </div>
+        <div class="scan-caption">reading document…</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ============ CONSOLE ============ -->
+<section class="console" id="console">
+  <div class="wrap">
+    <p class="section-eyebrow">Analysis Console</p>
+    <h2 class="section-title">Submit a certificate for review</h2>
+ 
+    <div class="console-grid">
+ 
+      <!-- LEFT: SUBMISSION -->
+      <div class="panel submit-panel">
+        <div class="tabs" role="tablist">
+          <button class="tab-btn is-active" data-tab="upload" role="tab" aria-selected="true">Upload Certificate</button>
+          <button class="tab-btn" data-tab="manual" role="tab" aria-selected="false">Enter Details Manually</button>
+        </div>
+ 
+        <!-- Upload tab -->
+        <div class="tab-panel is-active" data-panel="upload">
+          <label class="dropzone" id="dropzone" for="fileInput">
+            <input type="file" id="fileInput" accept="image/png, image/jpeg, image/webp" hidden />
+            <div class="dz-icon" aria-hidden="true">
+              <svg viewBox="0 0 48 48" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6">
+                <rect x="6" y="8" width="36" height="32" rx="2"/>
+                <path d="M6 30l10-10 8 8 6-6 12 12" />
+                <circle cx="17" cy="17" r="3"/>
+              </svg>
+            </div>
+            <p class="dz-title">Drop a certificate image here</p>
+            <p class="dz-sub">or click to browse — JPG, PNG, WEBP</p>
+            <p class="dz-sub dz-note">PDF? Export the certificate page as an image first.</p>
+          </label>
+ 
+          <div class="preview" id="previewWrap" hidden>
+            <img id="previewImg" alt="Uploaded certificate preview" />
+            <button class="link-btn" id="clearFile" type="button">Remove file</button>
+          </div>
+        </div>
+ 
+        <!-- Manual tab -->
+        <div class="tab-panel" data-panel="manual">
+          <form id="manualForm" class="manual-form" novalidate>
+            <label>Candidate name
+              <input type="text" name="candidateName" placeholder="e.g. Ananya Rao" />
+            </label>
+            <label>Institution / Issuer
+              <input type="text" name="institution" placeholder="e.g. NPTEL, Anna University" />
+            </label>
+            <label>Certificate ID
+              <input type="text" name="certId" placeholder="e.g. NPTEL24CS0113" />
+            </label>
+            <label>Issue date
+              <input type="date" name="issueDate" />
+            </label>
+            <label>Course / Program
+              <input type="text" name="course" placeholder="e.g. Data Structures and Algorithms" />
+            </label>
+          </form>
+        </div>
+ 
+        <div class="ocr-status" id="ocrStatus" hidden>
+          <div class="ocr-bar"><div class="ocr-bar-fill" id="ocrBarFill"></div></div>
+          <p id="ocrStatusText">Reading document…</p>
+        </div>
+ 
+        <button class="btn btn-primary btn-block" id="runBtn" type="button">Run Verification</button>
+        <p class="disclaimer-inline">Demo analysis engine — heuristic checks only, not a legal verification service.</p>
+      </div>
+ 
+      <!-- RIGHT: REPORT -->
+      <div class="panel report-panel" id="reportPanel">
+        <div class="report-empty" id="reportEmpty">
+          <div class="empty-seal" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="36" height="36">
+              <circle cx="20" cy="20" r="17" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 4"/>
+            </svg>
+          </div>
+          <p class="empty-title">Awaiting submission</p>
+          <p class="empty-sub">Upload a certificate or enter its details, then run verification to open a report here.</p>
+        </div>
+ 
+        <div class="report-body" id="reportBody" hidden>
+          <div class="report-head">
+            <div>
+              <p class="report-id" id="reportId">REPORT #—</p>
+              <p class="report-time" id="reportTime">—</p>
+            </div>
+            <div class="verdict-seal" id="verdictSeal">
+              <div class="seal-ring">
+                <svg viewBox="0 0 120 120" class="seal-svg">
+                  <circle cx="60" cy="60" r="52" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <circle cx="60" cy="60" r="44" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1 4"/>
+                  <path id="sealTextPath" d="M 60,16 A 44,44 0 1 1 59.9,16" fill="none"/>
+                  <text font-size="7.4" letter-spacing="2.2" fill="currentColor">
+                    <textPath href="#sealTextPath" startOffset="0%" id="sealArcText">EVIDENCE-BASED ANALYSIS • CERTIFICATEGUARD •</textPath>
+                  </text>
+                </svg>
+                <span class="verdict-label" id="verdictLabel">—</span>
+              </div>
+            </div>
+          </div>
+ 
+          <div class="confidence-block">
+            <div class="confidence-dial" id="confidenceDial">
+              <span id="confidenceNum">0%</span>
+            </div>
+            <div class="confidence-copy">
+              <p class="confidence-title">Confidence Index</p>
+              <p class="confidence-desc" id="confidenceDesc">Score reflects how many independent checks support this document's authenticity.</p>
+            </div>
+          </div>
+ 
+          <div class="extracted-block">
+            <p class="block-label">Extracted Details</p>
+            <dl class="extracted-grid" id="extractedGrid"></dl>
+          </div>
+ 
+          <div class="evidence-block">
+            <p class="block-label">Evidence Log</p>
+            <ul class="evidence-log" id="evidenceLog"></ul>
+          </div>
+ 
+          <div class="report-actions">
+            <button class="btn btn-ghost btn-block" id="printBtn" type="button">Print / Save Report</button>
+          </div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+ 
+<!-- ============ HOW IT WORKS ============ -->
+<section class="how" id="how">
+  <div class="wrap">
+    <p class="section-eyebrow">Process</p>
+    <h2 class="section-title">Four steps, in order</h2>
+    <ol class="steps">
+      <li>
+        <span class="step-num">01</span>
+        <h3>Submit</h3>
+        <p>Upload a certificate image or enter its printed details by hand.</p>
+      </li>
+      <li>
+        <span class="step-num">02</span>
+        <h3>Extract</h3>
+        <p>On-device OCR reads the candidate name, institution, certificate ID, date and course from the image.</p>
+      </li>
+      <li>
+        <span class="step-num">03</span>
+        <h3>Cross-check</h3>
+        <p>Every field is checked for format, plausibility, and a match against known verification records.</p>
+      </li>
+      <li>
+        <span class="step-num">04</span>
+        <h3>Verdict</h3>
+        <p>A verdict — Likely Genuine, Suspicious, or Likely Fake — is issued with a confidence score and the full evidence log.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+ 
+<!-- ============ ABOUT / FOOTER ============ -->
+<footer class="site-footer" id="about">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="wordmark-text footer-mark">CertificateGuard <em>AI</em></p>
+      <p class="footer-note">A prototype built to explore automated, evidence-backed certificate screening. All OCR runs locally in your browser — no file is uploaded to a server. Verification records used here are a small demo set, not a live registry.</p>
+    </div>
+    <div class="footer-links">
+      <p class="block-label">On this page</p>
+      <a href="#console">Analysis Console</a>
+      <a href="#how">How It Works</a>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>
+ 
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.4/dist/tesseract.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+ 
